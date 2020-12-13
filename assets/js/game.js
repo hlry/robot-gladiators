@@ -18,37 +18,10 @@ console.log(enemyNames);
 console.log(enemyNames.length);
 console.log(enemyNames[enemyNames.length - 1])
 
-for(var i = 0; i < enemyNames.length; i++) {
-  console.log(enemyNames[i]);
-  console.log(i);
-  console.log(enemyNames[i] + " is at " + i + " index");
-}
-
 // fight function
 var fight = function(enemyName) {
   //welcome message
   while (playerHealth > 0 && enemyHealth > 0) {
-    if (playerHealth > 0) {
-      // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
-      window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ) );
-      
-      // pick new enemy to fight based on the index of the enemyNames array
-      var pickedEnemyName = enemyNames[i];
-
-      // reset enemyHealth before starting new fight
-      enemyHealth = 50;
-
-      // use debugger to pause script from running and check what's going on at that moment in the code
-      // debugger;
-
-      // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-      fight(pickedEnemyName);   
-      else {
-        window.alert("You have lost your robot in battle! Game Over!");
-        break;
-      }
-    }
-
     // ask player if they'd liked to fight or run
     var promptFight = window.prompt('Would you like FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
@@ -67,24 +40,25 @@ var fight = function(enemyName) {
       }
     }
 
-    // remove enemy's health by subtracting the amount set in the playerAttack variable
-    enemyHealth = enemyHealth - playerAttack;
-    console.log(
-      playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
-    );
+      // remove enemy's health by subtracting the amount set in the playerAttack variable
+      enemyHealth = enemyHealth - playerAttack;
+      console.log(
+        playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
+      );
 
-    // check enemy's health
-    if (enemyHealth <= 0) {
-      window.alert(enemyName + ' has died!');
+      // check enemy's health
+      if (enemyHealth <= 0) {
+        window.alert(enemyName + ' has died!');
 
-      // award player money for winning
-      playerMoney = playerMoney + 20;
+        // award player money for winning
+        playerMoney = playerMoney + 20;
 
-      // leave while() loop since enemy is dead
-      break;
-    } else {
-      window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
-    }
+        // leave while() loop since enemy is dead
+        break;
+      } else {
+        window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
+      }
+
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
     playerHealth = playerHealth - enemyAttack;
@@ -102,10 +76,37 @@ var fight = function(enemyName) {
     }
   }
 };
-  
-// run fight function to start game
+
+// fight each enemy-robot by looping over them and fighting them one at a time
 for (var i = 0; i < enemyNames.length; i++) {
-  var pickedEnemyName = enemyNames[i];
-  enemyHealth = 50;
-  fight(pickedEnemyName);
-}
+    // if player is still alive, keep fighting
+    if (playerHealth > 0) {
+      // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+      window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ) );
+      
+      // pick new enemy to fight based on the index of the enemyNames array
+      var pickedEnemyName = enemyNames[i];
+
+      // reset enemyHealth before starting new fight
+      enemyHealth = 50;
+
+      // use debugger to pause script from running and check what's going on at that moment in the code
+      // debugger;
+
+      // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+      fight(pickedEnemyName);   
+    } else {
+        window.alert("You have lost your robot in battle! Game Over!");
+        break;
+      }
+
+  }
+
+  
+
+    
+
+
+
+  
+
