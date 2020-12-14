@@ -1,3 +1,5 @@
+/* GAME FUNCTIONS */
+
 // function to generate a random numeric value
 var randomNumber = function(min, max) {
   var value = Math.floor(Math.random() * (max - min + 1) + min);
@@ -168,6 +170,7 @@ var fight = function(enemyInfo) {
 
     // remove players's health by subtracting the amount set in the enemyInfo.attack variable
     var damage = randomNumber(enemyInfo.attack - 3, enemyInfo.attack);
+
     playerInfo.health = Math.max(0, playerInfo.health - damage);
     console.log(
       enemyInfo.name + ' attacked ' + playerInfo.name + '. ' + playerInfo.name + ' now has ' + playerInfo.health + ' health remaining.'
@@ -193,12 +196,11 @@ var shop = function() {
   // use switch to carry out action
   switch (shopOptionPrompt) {
     case "REFILL":
-      case "refill":
+    case "refill":
         playerInfo.refillHealth();
         break;
-    case "UPGRADE": 
     case "UPGRADE":
-      case "upgrade":
+    case "upgrade":
         playerInfo.upgradeAttack();
         break;
     case "LEAVE": 
