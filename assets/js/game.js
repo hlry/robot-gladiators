@@ -54,6 +54,8 @@ var enemyInfo = [
   }
 ];
 
+
+
 // function to start a new game
 var startGame = function() {
   // reset player stats
@@ -144,15 +146,21 @@ if (promptFight === "" || promptFight === null) {
   }
 }
 
-
-
-
 // fight function (now with parameter for enemy's name)
 var fight = function(enemyInfo) {
+      //keep track of who goes first
+      var isPlayerTurn = true;
+      if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+      } 
   // repeat and execute as long as the enemy-robot is alive 
   while(enemyInfo.health > 0 && playerInfo.health > 0) {
-    fightOrSkip(); // <-- Replace code with this function call
-
+    if (isPlayerTurn) {
+      // ask player if they'd like to fight or skip using fightOrSkip function
+      if (fightOrSkip()) {
+        // if true, leave fight by breaking loop
+        break;
+      }
     // generate random damage value based on player's attack power
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
       // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
@@ -167,20 +175,15 @@ var fight = function(enemyInfo) {
 
         // award player money for winning
         playerInfo.money = playerInfo.money + 20;
-        
-        // ask if player wants to use the store before next round
-        var storeConfirm = window.confirm('The fight is over, visit the store before the next round?');
-
-        // if yes, take them to the store() function
-        if (storeConfirm) {
-          shop();
-        }
 
         // leave while() loop since enemy is dead
         break;
       } else {
-        window.alert(enemyInfo.name + ' still has ' + enemyInfo.health + ' health left.');
+        window.alert(enemyInfo.name + " still has " + enemyInfo.health + " health left.");
       }
+      // player gets attacked first
+    } else {
+      var damage = randomNumber(enemyInfo.attack - 3, enemyInfo.attack); 
 
     // remove players's health by subtracting the amount set in the enemyInfo.attack variable
     var damage = randomNumber(enemyInfo.attack - 3, enemyInfo.attack);
@@ -198,6 +201,9 @@ var fight = function(enemyInfo) {
     } else {
       window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
     }
+  }
+  // switch turn order for next round
+  isPlayerTurn = !isPlayerTurn;
   };
 };
 
